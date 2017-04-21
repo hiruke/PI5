@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{B9356346-75E7-402A-9DE5-952B1A2D1810}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirmDAL", "FirmDAL\FirmDAL\FirmDAL.csproj", "{43A70AAC-BB4E-4D13-BEE0-D28063B21195}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9356346-75E7-402A-9DE5-952B1A2D1810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9356346-75E7-402A-9DE5-952B1A2D1810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9356346-75E7-402A-9DE5-952B1A2D1810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9356346-75E7-402A-9DE5-952B1A2D1810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43A70AAC-BB4E-4D13-BEE0-D28063B21195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A70AAC-BB4E-4D13-BEE0-D28063B21195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A70AAC-BB4E-4D13-BEE0-D28063B21195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A70AAC-BB4E-4D13-BEE0-D28063B21195}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
