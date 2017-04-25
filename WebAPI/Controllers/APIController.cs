@@ -49,53 +49,61 @@ namespace WebAPI.Controllers
 									}
 
 									return Json(resultado, JsonRequestBehavior.AllowGet);
-						}
+						}//login
 
-						/*               [ValidateInput(false)]
-																					public JsonResult Cadastro(string email, string password, string name, string phone)
-			{
+			    		[ValidateInput(false)]
+						public JsonResult Cadastro(string email, string password, string name, string phone){
 
-																									DBCommander commando = new DBCommander();
-																									try{
-																													string s = comando.CreateUser(name,phone,email,password);     
-																													if(usuario = password){
-																																	var resultado = new
-												{
-																																									cod = 1
-												};
-																													}
-																									}catch(IOExceptio e){
-																													var resultado = new
-												{
-																																									cod = 0
-												};
-																									}
-						return Json(resultado, JsonRequestBehavior.AllowGet);
-			}
+						    //DBCommander commando = new DBCommander();
+						    //var resultado;
+                            try{
+							    string s = DBCommander.CreateUser(name,phone,email,password);     
+						        if(s == ""){
+								    var resultado = new
+								    {
+									    cod = 1
+						    	    };
+                                    return Json(resultado, JsonRequestBehavior.AllowGet);
+							    }
+						    }catch(IOException e){
+						    }
+                            var resultado2 = new
+						    {
+								    cod = 0
+						    };
+                            return Json(resultado2, JsonRequestBehavior.AllowGet);
+						
+			            }
 
-																					[ValidateInput(false)]
-																					public JsonResult OferecerServico(int uid, int cid, string name, string desc) {
-																									DBCommander comando = new DBCommander();
-																									try
-																									{
-																													comando.CreateService(uid, cid, name, phone);
-																													var resposta = new
-																													{
-																																	cod = 1
-																													};
-																									}
-																									catch (IOException e) {
-																													var resposta = new
-																													{
-																																	cod = 0
-																													};
-																									}
-																									return Json(resultado, JsonRequestBehavior.AllowGet);
-																					}
+						[ValidateInput(false)]
+						public JsonResult OferecerServico(int uid, int cid, string name, string desc) {
+						    try
+							{
+							    DBCommander.CreateService(uid, cid, name, desc);
+							    var resposta = new
+							    {
+									cod = 1
+								};
+                                return Json(resposta, JsonRequestBehavior.AllowGet);
+							}
+                            catch (IOException e) {
+								var resposta = new
+								{
+									cod = 0
+								};
+                                return Json(resposta, JsonRequestBehavior.AllowGet);
+							}
+							return Json("");
+					    }
 
-																					[ValidateInput(false)]
-																					public JsonResult BuscarServico() { 
-                        
-																					}*/
-			}
-}
+						[ValidateInput(false)]
+						public JsonResult BuscarServico(int cid,int distance,double latitude, double longitude) {
+                            try {
+                                List<DBUser> lista = DBCommander.GetUsersByLocation(distance, latitude, longitude);
+
+                            }
+                            catch (IOException e) {
+                            }
+                        }
+			} //controller
+}//namespace
