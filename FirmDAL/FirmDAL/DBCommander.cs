@@ -75,24 +75,28 @@ namespace FirmDAL
 									service.Update();
 						}
 
+
+						/// <summary>
+						/// Retorna os services com base em usuario e categoria
+						/// </summary>
+						/// <param name="uid"></param>
+						/// <param name="cid"></param>
+						/// <returns></returns>
 						public static List<DBServices> GetServices(int uid, int cid)
 						{
-									string query = "select s.sid,s.uid,s.cid,s.name,s.description from services s,users u,categories c where s.uid=" + uid + " and s.cid=" + cid;
-									Console.WriteLine(query);
+									string query = "select sid,uid,cid,name,description from services where uid=" + uid + " and cid=" + cid;
 									List<DBServices> list = new List<DBServices>();
 									SqlDataReader reader = new SelectQuery(query).Read();
 
-									/*while (reader.Read())
+									while (reader.Read())
 									{
-												int uid = reader.GetInt32(0);
-												int status = reader.GetInt32(1);
-												string name = reader.GetString(2);
-												string phone = reader.GetString(3);
-												string email = reader.GetString(4);
+												int sid = reader.GetInt32(0);
+												string name = reader.GetString(3);
+												string description = reader.GetString(4);
 												string password = reader.GetString(5);
-												DBUser user = new DBUser(uid, status, name, phone, email, password);
-												list.Add(user);
-									}*/
+												DBServices service = new DBServices(sid, uid, cid, name, description);
+												list.Add(service);
+									}
 									reader.Close();
 									return list;
 						}

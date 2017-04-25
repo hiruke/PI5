@@ -52,6 +52,7 @@
     <Compile Include="DBCon.cs" />
     <Compile Include="Tables\DBCategories.cs" />
     <Compile Include="Tables\DBLocation.cs" />
+    <Compile Include="Tables\DBNotifications.cs" />
     <Compile Include="Tables\DBServices.cs" />
     <Compile Include="Tables\DBUser.cs" />
     <Compile Include="Program.cs" />
