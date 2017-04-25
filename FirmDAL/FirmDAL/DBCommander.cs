@@ -75,6 +75,29 @@ namespace FirmDAL
 									service.Update();
 						}
 
+						public static List<DBServices> GetServices(int uid, int cid)
+						{
+									string query = "select s.sid,s.uid,s.cid,s.name,s.description from services s,users u,categories c where s.uid=" + uid + " and s.cid=" + cid;
+									Console.WriteLine(query);
+									List<DBServices> list = new List<DBServices>();
+									SqlDataReader reader = new SelectQuery(query).Read();
+
+									/*while (reader.Read())
+									{
+												int uid = reader.GetInt32(0);
+												int status = reader.GetInt32(1);
+												string name = reader.GetString(2);
+												string phone = reader.GetString(3);
+												string email = reader.GetString(4);
+												string password = reader.GetString(5);
+												DBUser user = new DBUser(uid, status, name, phone, email, password);
+												list.Add(user);
+									}*/
+									reader.Close();
+									return list;
+						}
+
+
 						public static List<DBUser> GetUsersByLocation(int distance, double latitude, double longitude)
 						{
 									string query = "select u.uid,u.status,u.name,u.email,u.phone,u.password from users u,locations l where u.uid = l.uid and l.location.STDistance(geography::STGeomFromText('POINT(" + latitude.ToString().Replace(',', '.') + " " + longitude.ToString().Replace(',', '.') + ")',4326))<=" + distance * 1000;
