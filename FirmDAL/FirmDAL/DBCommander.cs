@@ -93,7 +93,6 @@ namespace FirmDAL
 												int sid = reader.GetInt32(0);
 												string name = reader.GetString(3);
 												string description = reader.GetString(4);
-												string password = reader.GetString(5);
 												DBServices service = new DBServices(sid, uid, cid, name, description);
 												list.Add(service);
 									}
