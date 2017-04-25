@@ -7,6 +7,7 @@ using FirmDAL;
 using FirmDAL.Tables;
 using System.IO;
 
+
 namespace WebAPI.Controllers
 {
 			public class APIController : Controller
@@ -98,12 +99,22 @@ namespace WebAPI.Controllers
 
 						[ValidateInput(false)]
 						public JsonResult BuscarServico(int cid,int distance,double latitude, double longitude) {
+                            
                             try {
                                 List<DBUser> lista = DBCommander.GetUsersByLocation(distance, latitude, longitude);
-
+                                List<DBServices> listaservicos = new List<DBServices>();
+                                foreach(DBUser  usuario in lista){
+                                    if((List<DBServices>)DBCommander.GetServices(usuario.uid,cid).Count>0){
+                                        listaservicos.Aggregate(DBCommander.GetServices(usuario.uid,cid));
+                                    }
+                                }
+                                return Json(listaservicos);
                             }
                             catch (IOException e) {
                             }
                         }
+
+                        [ValidateInput(false)]
+                        
 			} //controller
 }//namespace
