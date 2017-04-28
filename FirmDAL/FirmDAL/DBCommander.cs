@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FirmDAL.Tables;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace FirmDAL
 {
@@ -87,7 +88,6 @@ namespace FirmDAL
 									string query = "select sid,uid,cid,name,description from services where uid=" + uid + " and cid=" + cid;
 									List<DBServices> list = new List<DBServices>();
 									SqlDataReader reader = new SelectQuery(query).Read();
-
 									while (reader.Read())
 									{
 												int sid = reader.GetInt32(0);
@@ -121,7 +121,7 @@ namespace FirmDAL
 									reader.Close();
 									return list;
 
-                                    
+
 						}
 
 

@@ -6,130 +6,122 @@ using System.Web.Mvc;
 using FirmDAL;
 using FirmDAL.Tables;
 using System.IO;
-
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 
 namespace WebAPI.Controllers
 {
-    public class APIController : Controller
-    {
-        // GET: Default
-        public ActionResult Index()
-        {
-            return View();
-        }
-        [ValidateInput(false)]
-        public JsonResult Login(string email, string password)
-        {
+			public class APIController : Controller
+			{
+						// GET: Default
+						public ActionResult Index()
+						{
+									return View();
+						}
+						[ValidateInput(false)]
+						public JsonResult Login(string email, string password)
+						{
 
-            var resultado = new
-            {
-                status = 0,
-                name = "",
-                uid = 0,
-                phone = "",
-                email = "",
-            };
-            try
-            {
-                DBUser usuario = DBCommander.GetUser(email);
-                if (usuario.password == password)
-                {
-                    resultado = new
-                    {
-                        status = usuario.status,
-                        name = usuario.name,
-                        uid = usuario.uid,
-                        phone = usuario.phone,
-                        email = usuario.email,
-                    };
-                }
-            }
-            catch (IOException e)
-            {
+									var resultado = new
+									{
+												status = 0,
+												name = "",
+												uid = 0,
+												phone = "",
+												email = "",
+									};
+									try
+									{
+												DBUser usuario = DBCommander.GetUser(email);
+												if (usuario.password == password)
+												{
+															resultado = new
+															{
+																		status = usuario.status,
+																		name = usuario.name,
+																		uid = usuario.uid,
+																		phone = usuario.phone,
+																		email = usuario.email,
+															};
+												}
+									}
+									catch (IOException e)
+									{
 
-            }
+									}
 
-            return Json(resultado, JsonRequestBehavior.AllowGet);
-        }//login
+									return Json(resultado, JsonRequestBehavior.AllowGet);
+						}//login
 
-        [ValidateInput(false)]
-        public JsonResult Cadastro(string email, string password, string name, string phone, double latitude, double longitude)
-        {
+						[ValidateInput(false)]
+						public JsonResult Cadastro(string email, string password, string name, string phone, double latitude, double longitude)
+						{
 
-            //DBCommander commando = new DBCommander();
-            //var resultado;
-            try
-            {
-                string s = DBCommander.CreateUser(name, phone, email, password);
-                if (s == "")
-                {
-                    var resultado = new
-                    {
-                        cod = 1
-                        //DBUser eu = DBCommander.GetUser(email);
-                        
-                    };
-                    return Json(resultado, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (IOException e)
-            {
-            }
-            var resultado2 = new
-            {
-                cod = 0
-            };
-            return Json(resultado2, JsonRequestBehavior.AllowGet);
+									//DBCommander commando = new DBCommander();
+									//var resultado;
+									try
+									{
+												string s = DBCommander.CreateUser(name, phone, email, password);
+												if (s == "")
+												{
+															var resultado = new
+															{
+																		cod = 1
+																		//DBUser eu = DBCommander.GetUser(email);
 
-        }
+															};
+															return Json(resultado, JsonRequestBehavior.AllowGet);
+												}
+									}
+									catch (IOException e)
+									{
+									}
+									var resultado2 = new
+									{
+												cod = 0
+									};
+									return Json(resultado2, JsonRequestBehavior.AllowGet);
 
-        [ValidateInput(false)]
-        public JsonResult OferecerServico(int uid, int cid, string name, string desc)
-        {
-            try
-            {
-                DBCommander.CreateService(uid, cid, name, desc);
-                var resposta = new
-                {
-                    cod = 1
-                };
-                return Json(resposta, JsonRequestBehavior.AllowGet);
-            }
-            catch (IOException e)
-            {
-                var resposta = new
-                {
-                    cod = 0
-                };
-                return Json(resposta, JsonRequestBehavior.AllowGet);
-            }
-            return Json("");
-        }
+						}
 
-        [ValidateInput(false)]
-        public JsonResult BuscarServico(int cid, int distance, double latitude, double longitude)
-        {
-            List<DBServices> listaservicos = new List<DBServices>();
-            try
-            {
-                List<DBUser> lista = DBCommander.GetUsersByLocation(distance, latitude, longitude);
-                foreach (DBUser usuario in lista)
-                {
-                    if (DBCommander.GetServices(usuario.uid, cid).Count > 0)
-                    {
-                        listaservicos.Concat<DBServices>(DBCommander.GetServices(usuario.uid, cid));
-                    }
-                }
+						[ValidateInput(false)]
+						public JsonResult OferecerServico(int uid, int cid, string name, string desc)
+						{
+									try
+									{
+												DBCommander.CreateService(uid, cid, name, desc);
+												var resposta = new
+												{
+															cod = 1
+												};
+												return Json(resposta, JsonRequestBehavior.AllowGet);
+									}
+									catch (IOException e)
+									{
+												var resposta = new
+												{
+															cod = 0
+												};
+												return Json(resposta, JsonRequestBehavior.AllowGet);
+									}
+									return Json("");
+						}
 
-                return Json(listaservicos);
-            }
-            catch (IOException e)
-            {
-            }
-            return Json(listaservicos,JsonRequestBehavior.AllowGet);
-        }
+						[ValidateInput(false)]
+						public JsonResult BuscarServico(int cid, int distance, double latitude, double longitude)
+						{
+									List<DBServices> listaServicos = new List<DBServices>();
+									List<DBUser> lista = DBCommander.GetUsersByLocation(distance, latitude, longitude);
+
+									foreach (DBUser usuario in lista)
+									{
+												listaServicos = listaServicos.Concat(DBCommander.GetServices(usuario.uid, cid)).ToList();
+									}
+									var resultado = JsonConvert.SerializeObject(listaServicos);
+									return Json(resultado, JsonRequestBehavior.AllowGet);
+						}
 
 
-    } //controller
+			} //controller
 }//namespace

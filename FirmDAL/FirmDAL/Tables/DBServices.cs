@@ -60,8 +60,8 @@ namespace FirmDAL.Tables
 						public void Create()
 						{
 
-									string values = uid + ";'" + name + "';'" + description + "'";
-									new InsertQuery(table, "uid;name;description", values).Exec();
+									string values = uid + ";" + cid + ";'" + name + "';'" + description + "'";
+									new InsertQuery(table, "uid;cid;name;description", values).Exec();
 						}
 
 			}

@@ -26,7 +26,7 @@ namespace FirmDAL
 									DBUser user3 = DBCommander.GetUser("usuario3@email");
 									DBCommander.CreateLocation(user3.uid, -20.277990, -40.371781);
 									DBCommander.CreateService(user3.uid, 1, "svc3", "description");
-									
+
 									DBCommander.CreateUser("usuario4", "2222-3333", "usuario4@email", "huehuebrbr");
 									DBUser user4 = DBCommander.GetUser("usuario4@email");
 									DBCommander.CreateLocation(user4.uid, -20.250800, -40.753369);
@@ -43,10 +43,11 @@ namespace FirmDAL
 									DBCommander.CreateLocation(user6.uid, -20.278170, -40.386505);
 									DBCommander.CreateService(user6.uid, 1, "svc6", "description");
 
-									foreach (DBUser u in DBCommander.GetUsersByLocation(20, -20.222222, -40.111111))
-									{
-												Console.WriteLine(u.name + "-" + u.uid);
-									}
+									/*	foreach (DBUser u in DBCommander.GetUsersByLocation(20, -20.222222, -40.111111))
+										{
+													Console.WriteLine(u.name + "-" + u.uid);
+										}*/
+
 									Console.ReadKey();
 						}
 			}
