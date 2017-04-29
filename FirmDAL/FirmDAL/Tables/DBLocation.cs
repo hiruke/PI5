@@ -67,6 +67,7 @@ namespace FirmDAL.Tables
 									string latitude = location.Latitude.ToString().Replace(',', '.');
 									string longitude = location.Longitude.ToString().Replace(',', '.');
 									string values = uid + ";" + time + ";" + "geography::STGeomFromText('POINT(" + latitude + " " + longitude + ")',4326)";
+									new InsertQuery(table, "uid;timestamp;location", values).Exec();
 						}
 
 			}

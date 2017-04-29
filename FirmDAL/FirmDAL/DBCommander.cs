@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FirmDAL.Tables;
 using System.Data.SqlClient;
-using System.Diagnostics;
+//using System.Diagnostics;
 
 namespace FirmDAL
 {
