@@ -10,14 +10,14 @@ namespace FirmDAL.Tables
 			class DBNotifications
 			{
 
-						private int nid;
-						private int uid;
-						private int type;
-						private DateTime timestamp;
-						private int status;
-						private string message;
-						private string command;
-						private string table = "notifications";
+					public int nid;
+					public int uid;
+					public int type;
+					public DateTime timestamp;
+					public int status;
+					public string message;
+					public string command;
+					public string table = "notifications";
 
 
 						public DBNotifications(int nid, int uid, int type, DateTime timestamp, int status, string message, string command)

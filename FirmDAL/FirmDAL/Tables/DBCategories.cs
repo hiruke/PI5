@@ -10,10 +10,10 @@ namespace FirmDAL.Tables
 			public class DBCategories
 			{
 
-						private int cid;
-						private string name;
-						private string description;
-						private string table = "categories";
+						public int cid;
+						public string name;
+						public string description;
+						public string table = "categories";
 
 						public DBCategories(string name, string description)
 						{

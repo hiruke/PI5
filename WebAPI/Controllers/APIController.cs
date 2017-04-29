@@ -7,7 +7,6 @@ using FirmDAL;
 using FirmDAL.Tables;
 using System.IO;
 using System.Diagnostics;
-using Newtonsoft.Json;
 
 
 namespace WebAPI.Controllers
@@ -118,8 +117,7 @@ namespace WebAPI.Controllers
 									{
 												listaServicos = listaServicos.Concat(DBCommander.GetServices(usuario.uid, cid)).ToList();
 									}
-									var resultado = JsonConvert.SerializeObject(listaServicos);
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(listaServicos, JsonRequestBehavior.AllowGet);
 						}
 
 

@@ -9,12 +9,12 @@ namespace FirmDAL.Tables
 {
 			public class DBServices
 			{
-						private int sid;
-						private int uid;
-						private int cid;
-						private string name;
-						private string description;
-						private string table = "services";
+						public int sid;
+						public int uid;
+						public int cid;
+						public string name;
+						public string description;
+						public string table = "services";
 
 						public DBServices(int sid, int uid, int cid, string name, string description)
 						{

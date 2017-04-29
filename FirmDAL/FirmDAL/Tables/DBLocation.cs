@@ -12,11 +12,11 @@ namespace FirmDAL.Tables
 			public class DBLocation
 			{
 
-						private int lid;
-						private int uid;
-						private DateTime timestamp;
-						private GeoCoordinate location;
-						private string table = "locations";
+						public int lid;
+						public int uid;
+						public DateTime timestamp;
+						public GeoCoordinate location;
+						public string table = "locations";
 
 						public DBLocation(int lid, int uid, DateTime timestamp, double latitude, double longitude)
 						{
