@@ -14,7 +14,7 @@ namespace FirmDAL.Tables
 						public int cid;
 						public string name;
 						public string description;
-						public string table = "services";
+						private string table = "services";
 
 						public DBServices(int sid, int uid, int cid, string name, string description)
 						{

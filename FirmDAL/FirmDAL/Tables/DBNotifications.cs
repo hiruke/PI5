@@ -17,7 +17,7 @@ namespace FirmDAL.Tables
 					public int status;
 					public string message;
 					public string command;
-					public string table = "notifications";
+					private string table = "notifications";
 
 
 						public DBNotifications(int nid, int uid, int type, DateTime timestamp, int status, string message, string command)

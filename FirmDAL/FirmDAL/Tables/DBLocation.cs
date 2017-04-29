@@ -16,7 +16,7 @@ namespace FirmDAL.Tables
 						public int uid;
 						public DateTime timestamp;
 						public GeoCoordinate location;
-						public string table = "locations";
+						private string table = "locations";
 
 						public DBLocation(int lid, int uid, DateTime timestamp, double latitude, double longitude)
 						{

@@ -13,7 +13,7 @@ namespace FirmDAL.Tables
 						public int cid;
 						public string name;
 						public string description;
-						public string table = "categories";
+						private string table = "categories";
 
 						public DBCategories(string name, string description)
 						{

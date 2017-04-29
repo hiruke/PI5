@@ -15,8 +15,8 @@ namespace FirmDAL
 						public string name;
 						public string phone;
 						public string email;
-						public string password;
-						public string table = "users";
+						private string password;
+						private string table = "users";
 
 
 						/// <summary>
