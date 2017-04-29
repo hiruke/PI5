@@ -54,7 +54,6 @@ namespace FirmDAL
 						public DBUser(int uid)
 						{
 									this.uid = uid;
-									Console.WriteLine("Criando usuario com ID=" + uid);
 									SqlDataReader reader = new SelectQuery("status;name;phone;email;password", table, "uid=" + uid).Read();
 									while (reader.Read())
 									{
@@ -71,7 +70,6 @@ namespace FirmDAL
 						public DBUser(string email)
 						{
 									this.email = email;
-									Console.WriteLine("Criando usuario com email=" + email);
 									SqlDataReader reader = new SelectQuery("uid;status;name;phone;password", table, "email='" + email + "'").Read();
 									while (reader.Read())
 									{
@@ -84,6 +82,11 @@ namespace FirmDAL
 									}
 									reader.Close();
 						}
+
+                        public string getPassword()
+                        {
+                            return this.password;
+                        }
 
 						public void Update()
 						{

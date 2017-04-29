@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
 									try
 									{
 												DBUser usuario = DBCommander.GetUser(email);
-												if (usuario.password == password)
+												if (usuario.getPassword() == password)
 												{
 															resultado = new
 															{
