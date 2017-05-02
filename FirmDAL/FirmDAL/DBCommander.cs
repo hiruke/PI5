@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FirmDAL.Tables;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 //using System.Diagnostics;
 
 namespace FirmDAL
@@ -19,7 +20,6 @@ namespace FirmDAL
 									usuario.Create();
 									return "";
 						}
-
 						public static string UpdateUser(int uid, string name, string phone, string email, string password)
 						{
 									DBUser usuario = new DBUser(uid, 1, name, phone, email, password);
@@ -137,11 +137,46 @@ namespace FirmDAL
 									return "";
 						}
 
+
 						public static string UpdateLocation(int uid, double latitude, double logitude)
 						{
 									DBLocation location = new DBLocation(uid, latitude, logitude);
 									location.Update();
 									return "";
+						}
+
+
+						#endregion
+
+						#region Ações de Notifications
+
+						public void createNotification(int uid, int type, string message, [Optional] string command)
+						{
+
+									DBNotifications notification = new DBNotifications(uid, type, 0, message, command);
+									notification.Create();
+						}
+
+
+						public List<DBNotifications> getNotifications(int uid)
+						{
+									string query = "SELECT sid,uid,type,timestamp,status, FROM notifications where uid=" + uid;
+									List<DBNotifications> list = new List<DBNotifications>();
+									SqlDataReader reader = new SelectQuery(query).Read();
+									while (reader.Read())
+									{
+
+												int nid = reader.GetInt32(0);
+												int type = reader.GetInt32(1);
+												DateTime timestamp = reader.GetDateTime(2);
+												int status = reader.GetInt32(3);
+												string message = reader.GetString(4);
+												string command = reader.GetString(5);
+												DBNotifications notification = new DBNotifications(nid, type, status, message, command);
+												list.Add(notification);
+									}
+									reader.Close();
+									return list;
 						}
 
 

@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace FirmDAL.Tables
 {
 			class DBNotifications
 			{
 
-					public int nid;
-					public int uid;
-					public int type;
-					public DateTime timestamp;
-					public int status;
-					public string message;
-					public string command;
-					private string table = "notifications";
+						public int nid;
+						public int uid;
+						public int type;
+						public DateTime timestamp;
+						public int status;
+						public string message;
+						public string command;
+						private string table = "notifications";
 
 
-						public DBNotifications(int nid, int uid, int type, DateTime timestamp, int status, string message, string command)
+						public DBNotifications(int nid, int uid, int type, DateTime timestamp, int status, string message, [Optional] string command)
 						{
 									this.nid = nid;
 									this.uid = uid;
@@ -30,6 +31,18 @@ namespace FirmDAL.Tables
 									this.message = message;
 									this.command = command;
 						}
+
+
+						public DBNotifications(int uid, int type, int status, string message, string command)
+						{
+									this.uid = uid;
+									this.type = type;
+									this.status = status;
+									this.message = message;
+									this.command = command;
+						}
+
+
 
 						public DBNotifications(int nid)
 						{
@@ -55,7 +68,6 @@ namespace FirmDAL.Tables
 
 						public void Create()
 						{
-
 									string values = uid + ";" + type + ";" + "SYSDATETIME()" + ";" + status + ";'" + message + "';'" + command + "'";
 									new InsertQuery(table, "uid;type;timestamp;status;message;command", values).Exec();
 						}
