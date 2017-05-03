@@ -150,7 +150,7 @@ namespace FirmDAL
 
 						#region Ações de Notifications
 
-						public void createNotification(int uid, int type, string message, [Optional] string command)
+						public static void CreateNotification(int uid, int type, string message, [Optional] string command)
 						{
 
 									DBNotifications notification = new DBNotifications(uid, type, 0, message, command);
@@ -158,21 +158,20 @@ namespace FirmDAL
 						}
 
 
-						public List<DBNotifications> getNotifications(int uid)
+						public static List<DBNotifications> GetNotifications(int uid)
 						{
-									string query = "SELECT sid,uid,type,timestamp,status, FROM notifications where uid=" + uid;
+									string query = "SELECT nid,uid,type,timestamp,status,message,command FROM notifications where uid=" + uid;
 									List<DBNotifications> list = new List<DBNotifications>();
 									SqlDataReader reader = new SelectQuery(query).Read();
 									while (reader.Read())
 									{
-
 												int nid = reader.GetInt32(0);
-												int type = reader.GetInt32(1);
-												DateTime timestamp = reader.GetDateTime(2);
-												int status = reader.GetInt32(3);
-												string message = reader.GetString(4);
-												string command = reader.GetString(5);
-												DBNotifications notification = new DBNotifications(nid, type, status, message, command);
+												int type = reader.GetInt32(2);
+												DateTime timestamp = reader.GetDateTime(3);
+												int status = reader.GetInt32(4);
+												string message = reader.GetString(5);
+												string command = reader.GetString(6);
+												DBNotifications notification = new DBNotifications(nid, uid, type, timestamp, status, message, command);
 												list.Add(notification);
 									}
 									reader.Close();

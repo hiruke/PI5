@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 namespace FirmDAL.Tables
 {
-			class DBNotifications
+			public class DBNotifications
 			{
 
 						public int nid;
