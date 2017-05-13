@@ -14,9 +14,14 @@ namespace WebAPI.Controllers
 			public class APIController : Controller
 			{
 						// GET: Default
-						public ActionResult Index()
+						public JsonResult Index()
 						{
-									return View();
+									var resultado = new
+									{
+												status = "OK"
+									};
+									//return View();
+									return Json(resultado,JsonRequestBehavior.AllowGet);
 						}
 						[ValidateInput(false)]
 						public JsonResult Login(string email, string password)
