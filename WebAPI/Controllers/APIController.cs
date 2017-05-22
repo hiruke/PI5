@@ -65,6 +65,8 @@ namespace WebAPI.Controllers
 									{
 												cod = int.Parse(DBCommander.CreateUser(name, phone, email, password))
 									};
+									int uid = DBCommander.GetUser(email).uid;
+									DBCommander.CreateLocation(uid, latitude, longitude);
 									return Json(resultado, JsonRequestBehavior.AllowGet);
 						}
 
