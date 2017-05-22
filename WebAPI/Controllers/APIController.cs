@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
 												status = "OK"
 									};
 									//return View();
-									return Json(resultado,JsonRequestBehavior.AllowGet);
+									return Json(resultado, JsonRequestBehavior.AllowGet);
 						}
 						[ValidateInput(false)]
 						public JsonResult Login(string email, string password)
@@ -61,33 +61,13 @@ namespace WebAPI.Controllers
 						[ValidateInput(false)]
 						public JsonResult Cadastro(string email, string password, string name, string phone, double latitude, double longitude)
 						{
-
-									//DBCommander commando = new DBCommander();
-									//var resultado;
-									try
+									var resultado = new
 									{
-												string s = DBCommander.CreateUser(name, phone, email, password);
-												if (s == "")
-												{
-															var resultado = new
-															{
-																		cod = 1
-																		//DBUser eu = DBCommander.GetUser(email);
-
-															};
-															return Json(resultado, JsonRequestBehavior.AllowGet);
-												}
-									}
-									catch (IOException e)
-									{
-									}
-									var resultado2 = new
-									{
-												cod = 0
+												cod = int.Parse(DBCommander.CreateUser(name, phone, email, password))
 									};
-									return Json(resultado2, JsonRequestBehavior.AllowGet);
-
+									return Json(resultado, JsonRequestBehavior.AllowGet);
 						}
+
 
 						[ValidateInput(false)]
 						public JsonResult OferecerServico(int uid, int cid, string name, string desc)

@@ -16,9 +16,17 @@ namespace FirmDAL
 						#region Ações do usuário
 						public static string CreateUser(string name, string phone, string email, string password)
 						{
-									DBUser usuario = new DBUser(name, phone, email, password);
-									usuario.Create();
-									return "";
+									try
+									{
+												DBUser usuario = new DBUser(name, phone, email, password);
+												usuario.Create();
+												return "0";
+									}
+									catch (SqlException ex)
+									{
+
+									}
+									return "1";
 						}
 						public static string UpdateUser(int uid, string name, string phone, string email, string password)
 						{

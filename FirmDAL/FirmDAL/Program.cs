@@ -12,9 +12,7 @@ namespace FirmDAL
 			{
 						static void Main(string[] args)
 						{
-
 									/*
-									
 									DBCommander.CreateUser("usuario", "2222-3333", "usuario@email", "pass@@123");
 									DBUser user = DBCommander.GetUser("usuario@email");
 									DBCommander.CreateLocation(user.uid, -20.221850, -40.269261);
@@ -52,8 +50,8 @@ namespace FirmDAL
 									DBCommander.CreateNotification(user6.uid, 1, "Message6", "Command6");
 									
 									Console.WriteLine("Inserts Done!!");
-									*/
 									
+									*/
 									Console.ReadKey();
 						}
 			}
