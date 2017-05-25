@@ -16,23 +16,15 @@ namespace FirmDAL
 						#region Ações do usuário
 						public static string CreateUser(string name, string phone, string email, string password)
 						{
-									try
-									{
-												DBUser usuario = new DBUser(name, phone, email, password);
-												usuario.Create();
-												return "0";
-									}
-									catch (SqlException ex)
-									{
+									DBUser usuario = new DBUser(name, phone, email, password);
+									return usuario.Create();
 
-									}
-									return "1";
 						}
 						public static string UpdateUser(int uid, string name, string phone, string email, string password)
 						{
 									DBUser usuario = new DBUser(uid, 1, name, phone, email, password);
-									usuario.Update();
-									return "";
+									return usuario.Update();
+
 						}
 						public static string DeleteUser(int uid)
 						{
@@ -66,22 +58,22 @@ namespace FirmDAL
 
 						#region Ações de Services
 
-						public static void CreateService(int uid, int cid, string name, string description)
+						public static string CreateService(int uid, int cid, string name, string description)
 						{
 									DBServices service = new DBServices(uid, cid, name, description);
-									service.Create();
+									return service.Create();
 						}
 
-						public static void DeleteService(int sid)
+						public static string DeleteService(int sid)
 						{
 									DBServices service = new DBServices(sid);
-									service.Delete();
+									return service.Delete();
 						}
 
-						public static void UpdateService(int sid, int cid, string name, string description)
+						public static string UpdateService(int sid, int cid, string name, string description)
 						{
 									DBServices service = new DBServices(sid, 0, cid, name, description);
-									service.Update();
+									return service.Update();
 						}
 
 
@@ -149,8 +141,8 @@ namespace FirmDAL
 						public static string UpdateLocation(int uid, double latitude, double logitude)
 						{
 									DBLocation location = new DBLocation(uid, latitude, logitude);
-									location.Update();
-									return "";
+									return location.Update();
+
 						}
 
 
@@ -158,11 +150,11 @@ namespace FirmDAL
 
 						#region Ações de Notifications
 
-						public static void CreateNotification(int uid, int type, string message, [Optional] string command)
+						public static string CreateNotification(int uid, int type, string message, [Optional] string command)
 						{
 
 									DBNotifications notification = new DBNotifications(uid, type, 0, message, command);
-									notification.Create();
+									return notification.Create();
 						}
 
 

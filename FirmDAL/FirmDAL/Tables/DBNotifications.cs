@@ -66,10 +66,10 @@ namespace FirmDAL.Tables
 									new DeleteQuery(table, "nid=" + this.nid).Exec();
 						}
 
-						public void Create()
+						public string Create()
 						{
 									string values = uid + ";" + type + ";" + "SYSDATETIME()" + ";" + status + ";'" + message + "';'" + command + "'";
-									new InsertQuery(table, "uid;type;timestamp;status;message;command", values).Exec();
+								return	new InsertQuery(table, "uid;type;timestamp;status;message;command", values).Exec();
 						}
 
 			}

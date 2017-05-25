@@ -48,26 +48,26 @@ namespace FirmDAL.Tables
 									reader.Close();
 						}
 
-						public void Update()
+						public string Update()
 						{
 									string time = "SYSDATETIME()";
 									string latitude = location.Latitude.ToString().Replace(',', '.');
 									string longitude = location.Longitude.ToString().Replace(',', '.');
 									string values = "'" + time + "';" + "geography::STGeomFromText('POINT(" + latitude + " " + longitude + ")',4326)";
-									new UpdateQuery(table, "timestamp;location", values, "lid=" + this.lid).Exec();
+									return new UpdateQuery(table, "timestamp;location", values, "lid=" + this.lid).Exec();
 						}
 						public void Delete()
 						{
 									new DeleteQuery(table, "lid=" + this.lid).Exec();
 						}
 
-						public void Create()
+						public string Create()
 						{
 									string time = "SYSDATETIME()";
 									string latitude = location.Latitude.ToString().Replace(',', '.');
 									string longitude = location.Longitude.ToString().Replace(',', '.');
 									string values = uid + ";" + time + ";" + "geography::STGeomFromText('POINT(" + latitude + " " + longitude + ")',4326)";
-									new InsertQuery(table, "uid;timestamp;location", values).Exec();
+									return new InsertQuery(table, "uid;timestamp;location", values).Exec();
 						}
 
 			}

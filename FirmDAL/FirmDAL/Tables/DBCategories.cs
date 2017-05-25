@@ -38,21 +38,21 @@ namespace FirmDAL.Tables
 									reader.Close();
 						}
 
-						public void Update()
+						public string Update()
 						{
 									string values = "'" + name + "';'" + description + "'";
-									new UpdateQuery(table, "name;description", values, "cid=" + this.cid).Exec();
+									return new UpdateQuery(table, "name;description", values, "cid=" + this.cid).Exec();
 						}
 						public void Delete()
 						{
 									new DeleteQuery(table, "cid=" + this.cid).Exec();
 						}
 
-						public void Create()
+						public string Create()
 						{
 
 									string values = "'" + name + "';'" + description + "'";
-									new InsertQuery(table, "name;description", values).Exec();
+									return new InsertQuery(table, "name;description", values).Exec();
 
 						}
 

@@ -50,8 +50,8 @@ namespace FirmDAL
 									DBCommander.CreateNotification(user6.uid, 1, "Message6", "Command6");
 									
 									Console.WriteLine("Inserts Done!!");
-									
 									*/
+									
 									Console.ReadKey();
 						}
 			}

@@ -88,20 +88,20 @@ namespace FirmDAL
                             return this.password;
                         }
 
-						public void Update()
+						public string Update()
 						{
 									string values = "'" + name + "';'" + phone + "';'" + email + "';'" + password + "'";
-									new UpdateQuery(table, "name;phone;email;password", values, "uid=" + this.uid).Exec();
+									return new UpdateQuery(table, "name;phone;email;password", values, "uid=" + this.uid).Exec();
 						}
 						public void Delete()
 						{
 									new DeleteQuery(table, "uid=" + this.uid).Exec();
 						}
 
-						public void Create()
+						public string Create()
 						{
 									string values = "" + status + ";'" + name + "';'" + phone + "';'" + email + "';'" + password + "'";
-									new InsertQuery(table, "status;name;phone;email;password", values).Exec();
+								return	new InsertQuery(table, "status;name;phone;email;password", values).Exec();
 						}
 
 			}

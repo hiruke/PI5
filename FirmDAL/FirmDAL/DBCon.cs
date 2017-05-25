@@ -45,7 +45,7 @@ namespace FirmDAL
 									try
 									{
 												command.ExecuteNonQuery();
-												exception = "0x00";
+												exception = "0";
 									}
 									catch (SqlException ex)
 									{
