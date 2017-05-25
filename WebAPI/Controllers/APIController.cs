@@ -74,24 +74,31 @@ namespace WebAPI.Controllers
 						[ValidateInput(false)]
 						public JsonResult OferecerServico(int uid, int cid, string name, string desc)
 						{
-									try
+
+									var resultado = new
 									{
-												DBCommander.CreateService(uid, cid, name, desc);
-												var resposta = new
-												{
-															cod = 1
-												};
-												return Json(resposta, JsonRequestBehavior.AllowGet);
-									}
-									catch (IOException e)
-									{
-												var resposta = new
-												{
-															cod = 0
-												};
-												return Json(resposta, JsonRequestBehavior.AllowGet);
-									}
-									return Json("");
+												cod = int.Parse(DBCommander.CreateService(uid, cid, name, desc))
+									};
+									return Json(resultado, JsonRequestBehavior.AllowGet);
+
+									/*	try
+										{
+													DBCommander.CreateService(uid, cid, name, desc);
+													var resposta = new
+													{
+																cod = 1
+													};
+													return Json(resposta, JsonRequestBehavior.AllowGet);
+										}
+										catch (IOException e)
+										{
+													var resposta = new
+													{
+																cod = 0
+													};
+													return Json(resposta, JsonRequestBehavior.AllowGet);
+										}*/
+
 						}
 
 						[ValidateInput(false)]
@@ -107,6 +114,14 @@ namespace WebAPI.Controllers
 									return Json(listaServicos, JsonRequestBehavior.AllowGet);
 						}
 
+
+						[ValidateInput(false)]
+						public JsonResult getNotificacao(int uid)
+						{
+
+									List<DBNotifications> listaNotificacoes = DBCommander.GetNotifications(uid);
+									return Json(listaNotificacoes, JsonRequestBehavior.AllowGet);
+						}
 
 			} //controller
 }//namespace
