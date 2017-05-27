@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
 						}//login
 
 						[ValidateInput(false)]
-						public JsonResult Cadastro(string email, string password, string name, string phone, double latitude, double longitude)
+						public JsonResult Signup(string email, string password, string name, string phone, double latitude, double longitude)
 						{
 									var resultado = new
 									{
@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
 
 
 						[ValidateInput(false)]
-						public JsonResult OferecerServico(int uid, int cid, string name, string desc)
+						public JsonResult AddService(int uid, int cid, string name, string desc)
 						{
 
 									var resultado = new
@@ -102,7 +102,7 @@ namespace WebAPI.Controllers
 						}
 
 						[ValidateInput(false)]
-						public JsonResult BuscarServico(int cid, int distance, double latitude, double longitude)
+						public JsonResult GetServices(int cid, int distance, double latitude, double longitude)
 						{
 									List<DBServices> listaServicos = new List<DBServices>();
 									List<DBUser> lista = DBCommander.GetUsersByLocation(distance, latitude, longitude);
@@ -114,9 +114,15 @@ namespace WebAPI.Controllers
 									return Json(listaServicos, JsonRequestBehavior.AllowGet);
 						}
 
+						public JsonResult GetMyServices(int uid)
+						{
+									List<DBServices> listaServicos = new List<DBServices>();
+									listaServicos = listaServicos.Concat(DBCommander.GetServices(uid)).ToList();
+									return Json(listaServicos, JsonRequestBehavior.AllowGet);
+						}
 
 						[ValidateInput(false)]
-						public JsonResult getNotificacao(int uid)
+						public JsonResult GetMyNotifications(int uid)
 						{
 
 									List<DBNotifications> listaNotificacoes = DBCommander.GetNotifications(uid);

@@ -100,6 +100,23 @@ namespace FirmDAL
 									return list;
 						}
 
+						public static List<DBServices> GetServices(int uid)
+						{
+									string query = "select sid,uid,cid,name,description from services where uid=" + uid;
+									List<DBServices> list = new List<DBServices>();
+									SqlDataReader reader = new SelectQuery(query).Read();
+									while (reader.Read())
+									{
+												int sid = reader.GetInt32(0);
+												string name = reader.GetString(3);
+												int cid = reader.GetInt32(2);
+												string description = reader.GetString(4);
+												DBServices service = new DBServices(sid, uid, cid, name, description);
+												list.Add(service);
+									}
+									reader.Close();
+									return list;
+						}
 
 						public static List<DBUser> GetUsersByLocation(int distance, double latitude, double longitude)
 						{
