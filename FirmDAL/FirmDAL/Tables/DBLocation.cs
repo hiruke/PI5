@@ -53,8 +53,8 @@ namespace FirmDAL.Tables
 									string time = "SYSDATETIME()";
 									string latitude = location.Latitude.ToString().Replace(',', '.');
 									string longitude = location.Longitude.ToString().Replace(',', '.');
-									string values = "'" + time + "';" + "geography::STGeomFromText('POINT(" + latitude + " " + longitude + ")',4326)";
-									return new UpdateQuery(table, "timestamp;location", values, "lid=" + this.lid).Exec();
+									string values = time + ";" + "geography::STGeomFromText('POINT(" + latitude + " " + longitude + ")',4326)";
+									return new UpdateQuery(table, "timestamp;location", values, "uid=" + this.uid).Exec();
 						}
 						public void Delete()
 						{
