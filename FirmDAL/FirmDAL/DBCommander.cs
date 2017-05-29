@@ -150,20 +150,43 @@ namespace FirmDAL
 						public static string CreateLocation(int uid, double latitude, double longitude)
 						{
 									DBLocation location = new DBLocation(uid, latitude, longitude);
-									location.Create();
-									return "";
+									return location.Create();
 						}
-
 
 						public static string UpdateLocation(int uid, double latitude, double logitude)
 						{
 									DBLocation location = new DBLocation(uid, latitude, logitude);
 									return location.Update();
-
 						}
 
 
 						#endregion
+
+
+						#region Ações de Clients
+
+						public static string CreateClient(int uid, int sid)
+						{
+									DBClients client = new DBClients(uid, sid);
+									return client.Create();
+						}
+
+
+						public static string UpdateClient(int clid, int status)
+						{
+									DBClients client = new DBClients(clid);
+									client.status = status;
+									return client.Update();
+						}
+
+						public static string DeleteClient(int clid)
+						{
+									DBClients client = new DBClients(clid);
+									return client.Delete();
+						}
+
+						#endregion
+
 
 						#region Ações de Notifications
 

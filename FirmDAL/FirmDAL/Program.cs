@@ -12,13 +12,15 @@ namespace FirmDAL
 			{
 						static void Main(string[] args)
 						{
-									/*
-									DBCommander.CreateUser("usuario", "2222-3333", "usuario@email", "pass@@123");
+
+
+								/*	DBCommander.CreateUser("usuario", "2222-3333", "usuario@email", "pass@@123");
 									DBUser user = DBCommander.GetUser("usuario@email");
 									DBCommander.CreateLocation(user.uid, -20.221850, -40.269261);
 									DBCommander.CreateService(user.uid, 1, "serviço1", "Descricao do serviço1");
 									DBCommander.CreateNotification(user.uid, 1, "Message1", "Command1");
-									
+
+
 									DBCommander.CreateUser("usuario2", "2222-3333", "usuario2@email", "pass@@123");
 									DBUser user2 = DBCommander.GetUser("usuario2@email");
 									DBCommander.CreateLocation(user2.uid, -20.223912, -40.280761);
@@ -48,10 +50,11 @@ namespace FirmDAL
 									DBCommander.CreateLocation(user6.uid, -20.278170, -40.386505);
 									DBCommander.CreateService(user6.uid, 1, "serviço6", "Descricao do serviço6");
 									DBCommander.CreateNotification(user6.uid, 1, "Message6", "Command6");
-									
+
 									Console.WriteLine("Inserts Done!!");
-									*/
-									
+
+									/*/
+
 									Console.ReadKey();
 						}
 			}
