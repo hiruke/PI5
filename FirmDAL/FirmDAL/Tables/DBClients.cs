@@ -49,9 +49,9 @@ namespace FirmDAL.Tables
 									string values = uid + ";" + sid + ";" + status;
 									return new UpdateQuery(table, "uid;sid;status", values, "clid=" + this.clid).Exec();
 						}
-						public void Delete()
+						public string Delete()
 						{
-									new DeleteQuery(table, "clid=" + this.clid).Exec();
+									return new DeleteQuery(table, "clid=" + this.clid).Exec();
 						}
 
 						public string Create()
