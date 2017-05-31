@@ -14,7 +14,7 @@ namespace FirmDAL.Tables
 						public int nid;
 						public int uid;
 						public int type;
-						public DateTime timestamp;
+						private DateTime timestamp;
 						public int status;
 						public string message;
 						public string command;

@@ -76,7 +76,6 @@ namespace FirmDAL
 									return service.Update();
 						}
 
-
 						/// <summary>
 						/// Retorna os services com base em usuario e categoria
 						/// </summary>
@@ -141,7 +140,11 @@ namespace FirmDAL
 
 						}
 
-
+						public static string CreateService(int uid, int sid)
+						{
+									DBClients client = new DBClients(uid, sid);
+									return client.Create();
+						}
 
 						#endregion
 
@@ -161,7 +164,6 @@ namespace FirmDAL
 
 
 						#endregion
-
 
 						#region Ações de Clients
 
@@ -186,7 +188,6 @@ namespace FirmDAL
 						}
 
 						#endregion
-
 
 						#region Ações de Notifications
 
