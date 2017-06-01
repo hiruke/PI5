@@ -133,6 +133,11 @@ namespace WebAPI.Controllers
 									return Json(listaServicos, JsonRequestBehavior.AllowGet);
 						}
 
+						public JsonResult GetMyClients(int uid)
+						{
+									return Json(DBCommander.GetMyClients(uid), JsonRequestBehavior.AllowGet);
+						}
+
 						[ValidateInput(false)]
 						public JsonResult GetMyNotifications(int uid)
 						{

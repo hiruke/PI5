@@ -54,6 +54,11 @@ namespace FirmDAL
 									return new DBUser(email);
 						}
 
+						public static string Vote(int sid, bool positivo)
+						{
+									return "";
+						}
+
 						#endregion
 
 						#region Ações de Services
@@ -140,7 +145,7 @@ namespace FirmDAL
 
 						}
 
-						public static string CreateService(int uid, int sid)
+						public static string RegisterClient(int uid, int sid)
 						{
 									DBClients client = new DBClients(uid, sid);
 									return client.Create();
@@ -166,6 +171,23 @@ namespace FirmDAL
 						#endregion
 
 						#region Ações de Clients
+
+						public static List<DBClients> GetMyClients(int uid)
+						{
+									string query = "select DISTINCT c.clid,c.uid,c.sid,c.status from clients c,users u,services s where s.uid=" + uid + " and s.sid=c.sid";
+									List<DBClients> list = new List<DBClients>();
+									SqlDataReader reader = new SelectQuery(query).Read();
+									while (reader.Read())
+									{
+												int clid = reader.GetInt32(0);
+												int sid = reader.GetInt32(2);
+												int status = reader.GetInt32(3);
+												DBClients clients = new DBClients(clid, uid, sid, status);
+												list.Add(clients);
+									}
+									reader.Close();
+									return list;
+						}
 
 						public static string CreateClient(int uid, int sid)
 						{
