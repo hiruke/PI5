@@ -138,6 +138,15 @@ namespace WebAPI.Controllers
 									return Json(DBCommander.GetMyClients(uid), JsonRequestBehavior.AllowGet);
 						}
 
+						public JsonResult AddClient(int uid, int sid)
+						{
+									var resultado = new
+									{
+												cod = int.Parse(DBCommander.CreateClient(uid, sid))
+									};
+									return Json(resultado, JsonRequestBehavior.AllowGet);
+						}
+
 						[ValidateInput(false)]
 						public JsonResult GetMyNotifications(int uid)
 						{
