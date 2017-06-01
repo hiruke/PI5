@@ -123,6 +123,10 @@ namespace WebAPI.Controllers
 									{
 												listaServicos = listaServicos.Concat(DBCommander.GetServices(usuario.uid, cid)).ToList();
 									}
+									foreach (DBServices service in listaServicos)
+									{
+												service.owner = DBCommander.GetUser(service.uid).name;
+									}
 									return Json(listaServicos, JsonRequestBehavior.AllowGet);
 						}
 

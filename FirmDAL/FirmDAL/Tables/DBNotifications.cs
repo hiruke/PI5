@@ -69,7 +69,7 @@ namespace FirmDAL.Tables
 						public string Create()
 						{
 									string values = uid + ";" + type + ";" + "SYSDATETIME()" + ";" + status + ";'" + message + "';'" + command + "'";
-								return	new InsertQuery(table, "uid;type;timestamp;status;message;command", values).Exec();
+									return new InsertQuery(table, "uid;type;timestamp;status;message;command", values).Exec();
 						}
 
 			}

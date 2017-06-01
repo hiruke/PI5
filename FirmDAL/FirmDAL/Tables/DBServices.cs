@@ -12,6 +12,7 @@ namespace FirmDAL.Tables
 						public int sid;
 						public int uid;
 						public int cid;
+						public string owner;
 						public string name;
 						public string description;
 						private string table = "services";
