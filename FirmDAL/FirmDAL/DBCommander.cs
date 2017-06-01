@@ -172,14 +172,15 @@ namespace FirmDAL
 
 						#region Ações de Clients
 
-						public static List<DBClients> GetMyClients(int uid)
+						public static List<DBClients> GetMyClients(int _uid)
 						{
-									string query = "select DISTINCT c.clid,c.uid,c.sid,c.status from clients c,users u,services s where s.uid=" + uid + " and s.sid=c.sid";
+									string query = "select DISTINCT c.clid,c.uid,c.sid,c.status from clients c,users u,services s where s.uid=" + _uid + " and s.sid=c.sid";
 									List<DBClients> list = new List<DBClients>();
 									SqlDataReader reader = new SelectQuery(query).Read();
 									while (reader.Read())
 									{
 												int clid = reader.GetInt32(0);
+												int uid = reader.GetInt32(1);
 												int sid = reader.GetInt32(2);
 												int status = reader.GetInt32(3);
 												DBClients clients = new DBClients(clid, uid, sid, status);
