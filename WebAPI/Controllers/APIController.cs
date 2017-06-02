@@ -34,9 +34,11 @@ namespace WebAPI.Controllers
 												uid = 0,
 												phone = "",
 												email = "",
+												qualification = (float)0,
 									};
 
 									DBUser usuario = DBCommander.GetUser(email);
+
 									if (usuario.getPassword() == password)
 									{
 												resultado = new
@@ -46,6 +48,7 @@ namespace WebAPI.Controllers
 															uid = usuario.uid,
 															phone = usuario.phone,
 															email = usuario.email,
+															qualification = 100 * (float)(usuario.qualification_pos / (float)(usuario.qualification_neg + usuario.qualification_pos)),
 												};
 									}
 
@@ -78,7 +81,6 @@ namespace WebAPI.Controllers
 									return Json(resultado, JsonRequestBehavior.AllowGet);
 						}
 
-
 						[ValidateInput(false)]
 						public JsonResult UpdateLocation(int uid, double latitude, double longitude)
 						{
@@ -100,7 +102,6 @@ namespace WebAPI.Controllers
 									DBCommander.CreateLocation(uid, latitude, longitude);
 									return Json(resultado, JsonRequestBehavior.AllowGet);
 						}
-
 
 						[ValidateInput(false)]
 						public JsonResult AddService(int uid, int cid, string name, string desc)

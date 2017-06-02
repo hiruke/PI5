@@ -9,7 +9,6 @@ namespace FirmDAL.Tables
 {
 			public class DBCategories
 			{
-
 						public int cid;
 						public string name;
 						public string description;
@@ -50,12 +49,9 @@ namespace FirmDAL.Tables
 
 						public string Create()
 						{
-
 									string values = "'" + name + "';'" + description + "'";
 									return new InsertQuery(table, "name;description", values).Exec();
-
 						}
-
 
 			}
 }

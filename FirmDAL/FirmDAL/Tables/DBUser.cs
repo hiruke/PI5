@@ -16,6 +16,8 @@ namespace FirmDAL
 						public string phone;
 						public string email;
 						private string password;
+						public int qualification_pos;
+						public int qualification_neg;
 						private string table = "users";
 
 
@@ -54,7 +56,7 @@ namespace FirmDAL
 						public DBUser(int uid)
 						{
 									this.uid = uid;
-									SqlDataReader reader = new SelectQuery("status;name;phone;email;password", table, "uid=" + uid).Read();
+									SqlDataReader reader = new SelectQuery("status;name;phone;email;password;qualification_pos;qualification_neg", table, "uid=" + uid).Read();
 									while (reader.Read())
 									{
 												this.status = reader.GetInt32(0);
@@ -62,6 +64,8 @@ namespace FirmDAL
 												this.phone = reader.GetString(2);
 												this.email = reader.GetString(3);
 												this.password = reader.GetString(4);
+												this.qualification_pos = reader.GetInt32(5);
+												this.qualification_neg = reader.GetInt32(6);
 
 									}
 									reader.Close();
@@ -70,7 +74,7 @@ namespace FirmDAL
 						public DBUser(string email)
 						{
 									this.email = email;
-									SqlDataReader reader = new SelectQuery("uid;status;name;phone;password", table, "email='" + email + "'").Read();
+									SqlDataReader reader = new SelectQuery("uid;status;name;phone;password;qualification_pos;qualification_neg", table, "email='" + email + "'").Read();
 									while (reader.Read())
 									{
 												this.uid = reader.GetInt32(0);
@@ -78,15 +82,16 @@ namespace FirmDAL
 												this.name = reader.GetString(2);
 												this.phone = reader.GetString(3);
 												this.password = reader.GetString(4);
-
+												this.qualification_pos = reader.GetInt32(5);
+												this.qualification_neg = reader.GetInt32(6);
 									}
 									reader.Close();
 						}
 
-                        public string getPassword()
-                        {
-                            return this.password;
-                        }
+						public string getPassword()
+						{
+									return this.password;
+						}
 
 						public string Update()
 						{
@@ -101,7 +106,7 @@ namespace FirmDAL
 						public string Create()
 						{
 									string values = "" + status + ";'" + name + "';'" + phone + "';'" + email + "';'" + password + "'";
-								return	new InsertQuery(table, "status;name;phone;email;password", values).Exec();
+									return new InsertQuery(table, "status;name;phone;email;password", values).Exec();
 						}
 
 			}
