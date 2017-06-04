@@ -23,6 +23,7 @@ namespace WebAPI.Controllers
 									//return View();
 									return Json(resultado, JsonRequestBehavior.AllowGet);
 						}
+
 						[ValidateInput(false)]
 						public JsonResult Login(string email, string password)
 						{
@@ -135,6 +136,7 @@ namespace WebAPI.Controllers
 									return Json(serviceList, JsonRequestBehavior.AllowGet);
 						}
 
+						[ValidateInput(false)]
 						public JsonResult GetMyServices(int uid)
 						{
 									List<DBServices> serviceList = new List<DBServices>();
@@ -142,11 +144,20 @@ namespace WebAPI.Controllers
 									return Json(serviceList, JsonRequestBehavior.AllowGet);
 						}
 
+						[ValidateInput(false)]
 						public JsonResult GetMyClients(int uid)
 						{
-									return Json(DBCommander.GetMyClients(uid), JsonRequestBehavior.AllowGet);
+									List<DBClients> clientList = DBCommander.GetMyClients(uid);
+
+									foreach (DBClients client in clientList)
+									{
+												client.name = DBCommander.GetUser(uid).name;
+									}
+
+									return Json(clientList, JsonRequestBehavior.AllowGet);
 						}
 
+						[ValidateInput(false)]
 						public JsonResult AddClient(int uid, int sid)
 						{
 									var result = new
