@@ -54,9 +54,19 @@ namespace FirmDAL
 									return new DBUser(email);
 						}
 
-						public static string Vote(int sid, bool positivo)
+						public static string Vote(int sid, bool positive)
 						{
-									return "";
+									int uid = new DBServices(sid).uid;
+									if (positive)
+									{
+												string query = "update users set qualification_pos = (select qualification_pos from users where uid=" + uid + ")+1 where uid=" + uid;
+												return DBCon.Exec(query);
+									}
+									else
+									{
+												string query = "update users set qualification_neg = (select qualification_neg from users where uid=" + uid + ")+1 where uid=" + uid;
+												return DBCon.Exec(query);
+									}
 						}
 
 						#endregion

@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
 						public JsonResult Login(string email, string password)
 						{
 
-									var resultado = new
+									var result = new
 									{
 												status = 0,
 												name = "",
@@ -37,29 +37,29 @@ namespace WebAPI.Controllers
 												qualification = (float)0,
 									};
 
-									DBUser usuario = DBCommander.GetUser(email);
+									DBUser user = DBCommander.GetUser(email);
 
-									if (usuario.getPassword() == password)
+									if (user.getPassword() == password)
 									{
-												resultado = new
+												result = new
 												{
-															status = usuario.status,
-															name = usuario.name,
-															uid = usuario.uid,
-															phone = usuario.phone,
-															email = usuario.email,
-															qualification = 100 * (float)(usuario.qualification_pos / (float)(usuario.qualification_neg + usuario.qualification_pos)),
+															status = user.status,
+															name = user.name,
+															uid = user.uid,
+															phone = user.phone,
+															email = user.email,
+															qualification = 100 * (float)(user.qualification_pos / (float)(user.qualification_neg + user.qualification_pos)),
 												};
 									}
 
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}//login
 
 						[ValidateInput(false)]
 						public JsonResult GetProfile(int uid)
 						{
 
-									var resultado = new
+									var result = new
 									{
 												status = 0,
 												name = "",
@@ -68,74 +68,74 @@ namespace WebAPI.Controllers
 												email = "",
 									};
 
-									DBUser usuario = DBCommander.GetUser(uid);
-									resultado = new
+									DBUser user = DBCommander.GetUser(uid);
+									result = new
 									{
-												status = usuario.status,
-												name = usuario.name,
-												uid = usuario.uid,
-												phone = usuario.phone,
-												email = usuario.email,
+												status = user.status,
+												name = user.name,
+												uid = user.uid,
+												phone = user.phone,
+												email = user.email,
 									};
 
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
 						public JsonResult UpdateLocation(int uid, double latitude, double longitude)
 						{
-									var resultado = new
+									var result = new
 									{
 												cod = DBCommander.UpdateLocation(uid, latitude, longitude)
 									};
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
 						public JsonResult Signup(string email, string password, string name, string phone, double latitude, double longitude)
 						{
-									var resultado = new
+									var result = new
 									{
 												cod = int.Parse(DBCommander.CreateUser(name, phone, email, password))
 									};
 									int uid = DBCommander.GetUser(email).uid;
 									DBCommander.CreateLocation(uid, latitude, longitude);
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
 						public JsonResult AddService(int uid, int cid, string name, string desc)
 						{
 
-									var resultado = new
+									var result = new
 									{
 												cod = int.Parse(DBCommander.CreateService(uid, cid, name, desc))
 									};
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
 						public JsonResult GetServices(int cid, int distance, double latitude, double longitude)
 						{
-									List<DBServices> listaServicos = new List<DBServices>();
-									List<DBUser> lista = DBCommander.GetUsersByLocation(distance, latitude, longitude);
+									List<DBServices> serviceList = new List<DBServices>();
+									List<DBUser> list = DBCommander.GetUsersByLocation(distance, latitude, longitude);
 
-									foreach (DBUser usuario in lista)
+									foreach (DBUser user in list)
 									{
-												listaServicos = listaServicos.Concat(DBCommander.GetServices(usuario.uid, cid)).ToList();
+												serviceList = serviceList.Concat(DBCommander.GetServices(user.uid, cid)).ToList();
 									}
-									foreach (DBServices service in listaServicos)
+									foreach (DBServices service in serviceList)
 									{
 												service.owner = DBCommander.GetUser(service.uid).name;
 									}
-									return Json(listaServicos, JsonRequestBehavior.AllowGet);
+									return Json(serviceList, JsonRequestBehavior.AllowGet);
 						}
 
 						public JsonResult GetMyServices(int uid)
 						{
-									List<DBServices> listaServicos = new List<DBServices>();
-									listaServicos = listaServicos.Concat(DBCommander.GetServices(uid)).ToList();
-									return Json(listaServicos, JsonRequestBehavior.AllowGet);
+									List<DBServices> serviceList = new List<DBServices>();
+									serviceList = serviceList.Concat(DBCommander.GetServices(uid)).ToList();
+									return Json(serviceList, JsonRequestBehavior.AllowGet);
 						}
 
 						public JsonResult GetMyClients(int uid)
@@ -145,19 +145,25 @@ namespace WebAPI.Controllers
 
 						public JsonResult AddClient(int uid, int sid)
 						{
-									var resultado = new
+									var result = new
 									{
 												cod = int.Parse(DBCommander.CreateClient(uid, sid))
 									};
-									return Json(resultado, JsonRequestBehavior.AllowGet);
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
 						public JsonResult GetMyNotifications(int uid)
 						{
 
-									List<DBNotifications> listaNotificacoes = DBCommander.GetNotifications(uid);
-									return Json(listaNotificacoes, JsonRequestBehavior.AllowGet);
+									List<DBNotifications> notificationList = DBCommander.GetNotifications(uid);
+									return Json(notificationList, JsonRequestBehavior.AllowGet);
+						}
+
+						[ValidateInput(false)]
+						public JsonResult Vote(int sid, bool positive)
+						{
+									return Json(DBCommander.Vote(sid, positive), JsonRequestBehavior.AllowGet);
 						}
 
 			} //controller
