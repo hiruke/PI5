@@ -115,7 +115,7 @@ namespace WebAPI.Controllers
 						}
 
 						[ValidateInput(false)]
-						public JsonResult GetServices(int cid, int distance, double latitude, double longitude)
+						public JsonResult GetServices(int cid, int distance, double latitude, double longitude, int uid = 0)
 						{
 									List<DBServices> serviceList = new List<DBServices>();
 									List<DBUser> list = DBCommander.GetUsersByLocation(distance, latitude, longitude);
@@ -127,6 +127,10 @@ namespace WebAPI.Controllers
 									foreach (DBServices service in serviceList)
 									{
 												service.owner = DBCommander.GetUser(service.uid).name;
+									}
+									if (uid > 0)
+									{
+												serviceList.RemoveAll(service => service.uid == uid);
 									}
 									return Json(serviceList, JsonRequestBehavior.AllowGet);
 						}
