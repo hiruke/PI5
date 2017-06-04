@@ -152,6 +152,7 @@ namespace WebAPI.Controllers
 									foreach (DBClients client in clientList)
 									{
 												client.name = DBCommander.GetUser(client.uid).name;
+												client.serviceName = DBCommander.GetServicesByID(client.sid).name;
 									}
 
 									return Json(clientList, JsonRequestBehavior.AllowGet);
