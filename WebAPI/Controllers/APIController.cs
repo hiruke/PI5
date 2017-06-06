@@ -182,5 +182,46 @@ namespace WebAPI.Controllers
 									return Json(DBCommander.Vote(sid, positive), JsonRequestBehavior.AllowGet);
 						}
 
+						[ValidateInput(false)]
+						public JsonResult removeService(int sid)
+						{
+									return Json(DBCommander.GetServicesByID(sid).Delete(), JsonRequestBehavior.AllowGet);
+						}
+
+						[ValidateInput(false)]
+						public JsonResult endRequest(int clid)
+						{
+									var result = new
+									{
+												cod = int.Parse(DBCommander.UpdateClient(clid, 1))
+									};
+									if (result.cod == 0)
+									{
+												DBClients client = DBCommander.GetClientByID(clid);
+												DBServices service = DBCommander.GetServicesByID(client.sid);
+												DBUser owner = DBCommander.GetUser(service.uid);
+												DBCommander.CreateNotification(client.uid, 2, "Sua opinião é muito importante para a plataforma. Por favor nos ajuda a avaliar o proficional que lhe atendeu no serviço " + service.name + ", prestado por " + owner, client.sid.ToString());
+									}
+									return Json(result, JsonRequestBehavior.AllowGet);
+						}
+
+
+						[ValidateInput(false)]
+						public JsonResult rejectRequest(int clid)
+						{
+									var result = new
+							{
+										cod = int.Parse(DBCommander.UpdateClient(clid, 1))
+							};
+									if (result.cod == 0)
+									{
+												DBClients client = DBCommander.GetClientByID(clid);
+												DBServices service = DBCommander.GetServicesByID(client.sid);
+												DBUser owner = DBCommander.GetUser(service.uid);
+												DBCommander.CreateNotification(client.uid, 2, "Infelizemente, referente a sua solicitação para o serviço " + service.name + ", não pode ser atendida por " + owner + " no momento. Mas você pode buscar por outro profissional", client.sid.ToString());
+									}
+									return Json(result, JsonRequestBehavior.AllowGet);
+						}
+
 			} //controller
 }//namespace

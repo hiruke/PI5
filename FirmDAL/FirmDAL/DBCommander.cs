@@ -217,6 +217,11 @@ namespace FirmDAL
 									return list;
 						}
 
+						public static DBClients GetClientByID(int clid)
+						{
+									return new DBClients(clid);
+						}
+
 						public static string CreateClient(int uid, int sid)
 						{
 									DBClients client = new DBClients(uid, sid);

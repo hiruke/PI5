@@ -33,9 +33,9 @@ namespace FirmDAL.Tables
 									this.sid = sid;
 						}
 
-						public DBClients(int sid)
+						public DBClients(int clid)
 						{
-									SqlDataReader reader = new SelectQuery("clid;uid;sid;status", table, "sid=" + sid).Read();
+									SqlDataReader reader = new SelectQuery("clid;uid;sid;status", table, "clid=" + clid).Read();
 									while (reader.Read())
 									{
 												this.clid = reader.GetInt32(0);
