@@ -72,5 +72,11 @@ namespace FirmDAL.Tables
 									return new InsertQuery(table, "uid;type;timestamp;status;message;command", values).Exec();
 						}
 
+						public string Update()
+						{
+									string values = uid + ";" + type + ";" + "SYSDATETIME()" + ";" + status + ";'" + message + "';'" + command + "'";
+									return new UpdateQuery(table, "uid;type;timestamp;status;message;command", values, "nid=" + this.nid).Exec();
+						}
+
 			}
 }

@@ -274,6 +274,10 @@ namespace FirmDAL
 									return list;
 						}
 
+						public static DBNotifications GetNotificationByID(int nid)
+						{
+									return new DBNotifications(nid);
+						}
 
 						#endregion
 

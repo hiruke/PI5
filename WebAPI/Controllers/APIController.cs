@@ -177,19 +177,50 @@ namespace WebAPI.Controllers
 						}
 
 						[ValidateInput(false)]
-						public JsonResult Vote(int sid, bool positive)
+						public JsonResult Vote(int sid, bool positive, int nid)
 						{
-									return Json(DBCommander.Vote(sid, positive), JsonRequestBehavior.AllowGet);
+									var result = new
+									{
+												cod = int.Parse(DBCommander.Vote(sid, positive))
+									};
+									if (result.cod == 0)
+									{
+												DBNotifications notificacao = DBCommander.GetNotificationByID(nid);
+												notificacao.status = 2;
+												notificacao.Update();
+									}
+									return Json(result, JsonRequestBehavior.AllowGet);
+						}
+
+						public JsonResult MarkAsRead(int nid)
+						{
+
+									DBNotifications notificacao = DBCommander.GetNotificationByID(nid);
+
+									if (notificacao.status == 0)
+									{
+												notificacao.status = 1;
+									}
+
+									var result = new
+									{
+												cod = notificacao.Update()
+									};
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
-						public JsonResult removeService(int sid)
+						public JsonResult RemoveService(int sid)
 						{
-									return Json(DBCommander.GetServicesByID(sid).Delete(), JsonRequestBehavior.AllowGet);
+									var result = new
+									{
+												cod = int.Parse(DBCommander.GetServicesByID(sid).Delete())
+									};
+									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
-						public JsonResult endRequest(int clid)
+						public JsonResult EndRequest(int clid)
 						{
 									var result = new
 									{
@@ -207,7 +238,7 @@ namespace WebAPI.Controllers
 
 
 						[ValidateInput(false)]
-						public JsonResult rejectRequest(int clid)
+						public JsonResult RejectRequest(int clid)
 						{
 									var result = new
 							{
