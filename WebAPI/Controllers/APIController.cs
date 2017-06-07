@@ -42,6 +42,17 @@ namespace WebAPI.Controllers
 
 									if (user.getPassword() == password)
 									{
+												float calc;
+												if (user.qualification_pos + user.qualification_neg > 0)
+												{
+															calc = 100 * (float)(user.qualification_pos / (float)(user.qualification_neg + user.qualification_pos));
+												}
+												else
+												{
+															calc = 0;
+												}
+
+
 												result = new
 												{
 															status = user.status,
@@ -49,7 +60,7 @@ namespace WebAPI.Controllers
 															uid = user.uid,
 															phone = user.phone,
 															email = user.email,
-															qualification = 100 * (float)(user.qualification_pos / (float)(user.qualification_neg + user.qualification_pos)),
+															qualification = calc,
 												};
 									}
 
@@ -231,7 +242,7 @@ namespace WebAPI.Controllers
 												DBClients client = DBCommander.GetClientByID(clid);
 												DBServices service = DBCommander.GetServicesByID(client.sid);
 												DBUser owner = DBCommander.GetUser(service.uid);
-												DBCommander.CreateNotification(client.uid, 2, "Sua opinião é muito importante para a plataforma. Por favor nos ajuda a avaliar o profissional que lhe atendeu no serviço " + service.name + ", prestado por " + owner, client.sid.ToString());
+												DBCommander.CreateNotification(client.uid, 1, "Sua opinião é muito importante para a plataforma. Por favor nos ajuda a avaliar o profissional que lhe atendeu no serviço " + service.name + ", prestado por " + owner, client.sid.ToString());
 									}
 									return Json(result, JsonRequestBehavior.AllowGet);
 						}
@@ -244,7 +255,7 @@ namespace WebAPI.Controllers
 							{
 										cod = int.Parse(DBCommander.UpdateClient(clid, 1))
 							};
-										if (result.cod == 0)
+									if (result.cod == 0)
 									{
 												DBClients client = DBCommander.GetClientByID(clid);
 												DBServices service = DBCommander.GetServicesByID(client.sid);
