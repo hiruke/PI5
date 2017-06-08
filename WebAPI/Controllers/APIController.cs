@@ -7,6 +7,7 @@ using FirmDAL;
 using FirmDAL.Tables;
 using System.IO;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 
 namespace WebAPI.Controllers
@@ -66,6 +67,24 @@ namespace WebAPI.Controllers
 
 									return Json(result, JsonRequestBehavior.AllowGet);
 						}//login
+
+						[ValidateInput(false)]
+						public JsonResult ResetDB()
+						{
+									int result;
+									try
+									{
+												DBCommander.GetServices(1);
+												result = 0;
+									}
+									catch (SqlException ex)
+									{
+												result = 1;
+												DBCon.closeCon();
+									}
+
+									return Json(result, JsonRequestBehavior.AllowGet);
+						}
 
 						[ValidateInput(false)]
 						public JsonResult GetProfile(int uid)
