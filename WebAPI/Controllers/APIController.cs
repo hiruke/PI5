@@ -69,7 +69,7 @@ namespace WebAPI.Controllers
 						}//login
 
 						[ValidateInput(false)]
-						public JsonResult ResetDB()
+						public JsonResult ResetAPI()
 						{
 									int result;
 									try
@@ -84,6 +84,11 @@ namespace WebAPI.Controllers
 									}
 
 									return Json(result, JsonRequestBehavior.AllowGet);
+						}
+						public void ForceFail()
+						{
+									SelectQuery query = new SelectQuery("select * from categories");
+									query.Read("select * from categories");
 						}
 
 						[ValidateInput(false)]
@@ -195,6 +200,11 @@ namespace WebAPI.Controllers
 									{
 												cod = int.Parse(DBCommander.CreateClient(uid, sid))
 									};
+									if (result.cod == 0)
+									{
+												DBServices service = DBCommander.GetServicesByID(sid);
+												DBCommander.CreateNotification(service.uid, 1, "Você recebeu uma nova solicitação para o serviço '" + service.name + "'");
+									}
 									return Json(result, JsonRequestBehavior.AllowGet);
 						}
 
