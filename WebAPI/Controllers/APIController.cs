@@ -203,7 +203,7 @@ namespace WebAPI.Controllers
 									if (result.cod == 0)
 									{
 												DBServices service = DBCommander.GetServicesByID(sid);
-												DBCommander.CreateNotification(service.uid, 1, "Você recebeu uma nova solicitação para o serviço '" + service.name + "'");
+												DBCommander.CreateNotification(service.uid, 0, "Você recebeu uma nova solicitação para o serviço \"" + service.name + "\"");
 									}
 									return Json(result, JsonRequestBehavior.AllowGet);
 						}
