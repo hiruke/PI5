@@ -236,6 +236,23 @@ namespace FirmDAL
 									return client.Update();
 						}
 
+
+						public static List<DBClients> GetClientsByUser(int uid)
+						{
+									string query = "select clid,uid,sid,status from clients where uid=" + uid;
+									List<DBClients> list = new List<DBClients>();
+									SqlDataReader reader = new SelectQuery(query).Read();
+									while (reader.Read())
+									{
+												int clid = reader.GetInt32(0);
+												int sid = reader.GetInt32(2);
+												int status = reader.GetInt32(3);
+												DBClients client = new DBClients(clid, uid, sid, status);
+												list.Add(client);
+									}
+									reader.Close();
+									return list;
+						}
 						public static string DeleteClient(int clid)
 						{
 									DBClients client = new DBClients(clid);

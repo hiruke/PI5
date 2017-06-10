@@ -186,12 +186,15 @@ namespace WebAPI.Controllers
 
 									foreach (DBClients client in clientList)
 									{
+												DBServices service = DBCommander.GetServicesByID(client.sid);
+												client.service = service.name;
+												client.owner = DBCommander.GetUser(service.uid).name;
 												client.name = DBCommander.GetUser(client.uid).name;
-												client.service = DBCommander.GetServicesByID(client.sid).name;
 									}
 
 									return Json(clientList, JsonRequestBehavior.AllowGet);
 						}
+
 
 						[ValidateInput(false)]
 						public JsonResult AddClient(int uid, int sid)
@@ -214,6 +217,19 @@ namespace WebAPI.Controllers
 
 									List<DBNotifications> notificationList = DBCommander.GetNotifications(uid);
 									return Json(notificationList, JsonRequestBehavior.AllowGet);
+						}
+
+						public JsonResult GetMyRequests(int uid)
+						{
+									List<DBClients> clientsList = DBCommander.GetClientsByUser(uid);
+									foreach (DBClients client in clientsList)
+									{
+												DBServices service = DBCommander.GetServicesByID(client.sid);
+												client.service = service.name;
+												client.owner = DBCommander.GetUser(service.uid).name;
+												client.name = DBCommander.GetUser(client.uid).name;
+									}
+									return Json(clientsList, JsonRequestBehavior.AllowGet);
 						}
 
 						[ValidateInput(false)]
@@ -260,6 +276,16 @@ namespace WebAPI.Controllers
 						}
 
 						[ValidateInput(false)]
+
+						public JsonResult CancelRequest(int clid)
+						{
+									var result = new
+													{
+																cod = int.Parse(new DBClients(clid).Delete())
+													};
+									return Json(result, JsonRequestBehavior.AllowGet);
+						}
+
 						public JsonResult EndRequest(int clid)
 						{
 									var result = new

@@ -17,6 +17,7 @@ namespace FirmDAL.Tables
 						public int status;
 						public string name;
 						public string service;
+						public string owner;
 						private string table = "clients";
 
 						public DBClients(int clid, int uid, int sid, int status)
